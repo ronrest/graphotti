@@ -25,4 +25,4 @@ TODO
 
 ## Contributing
 
-TODO
+See the [contributing.md](contributing.md) file for details on how to contribute to this project. 
