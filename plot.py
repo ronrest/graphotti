@@ -1,3 +1,7 @@
+# TODO: allow addition of more than 2 items
+# TODO: overlload math operators for PlotGroup as well
+# TODO: allow addition of PlotGroups with ProtoPlot objects
+# TODO: allow addition PlotGroups
 import pandas as pd
 from engines import enginemap
 
@@ -79,7 +83,7 @@ class ProtoPlot(object):
     def __add__(self, other):
         return PlotGroup([self, other], type="overlay", engine=self.engine)
 
-    
+
 
 class PlotGroup(object):
     def __init__(self, items=[], engine="mpl", type="overlay"):
