@@ -100,12 +100,15 @@ TODO
 Combining plots together should be as easy as `a+b+c`. The following are how the  mathematical operators are planned to be interpreted by this library.
 
 - `p1+p2+p3` overlay plots (sharing y axis)
-- `p1+(-p2)+(-p3)` overlay plots (with independent y axis)
+- `p1-p2-p3` overlay plots (with independent y axis)
+- `p1+(-p2)+(-p3)` Also overlay plots (with independent y axis)
 
 - `p1/p2/p3` Stack the plots one below the other (sharing x axis)
+- `p1//p2//p3` Stack the plots one below the other (independent x axis)
 - `p1/(-p2)/(-p3)` Stack the plots one below the other (independent x axis)
 
 - `p1*p2*p3` Stack the plots side by side (sharing y axis)
+- `p1**p2**p3` Stack the plots side by side (independent y axis)
 - `p1*(-p2)*(-p3)` Stack the plots side by side (independent y axis)
 
 - `(p1 * p2)/(p3* p4)/(p5* p6)` Create a 3x2 grid of plots. TODO: create a null plot object for when you want a place holder for blank cells.
