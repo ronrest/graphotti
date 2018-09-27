@@ -1,7 +1,14 @@
+from . mpl import MPLEngine
+mpl = MPLEngine()
+
+# enginemap = dict(
+#     mpl = mplengine,
+#     plotly=plotlyengine,
+#     )
 
 enginemap = dict(
-    mpl = mplengine,
-    plotly=plotlyengine,
+    mpl = mpl,
+    plotly=None,
     )
 
 
