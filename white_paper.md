@@ -87,6 +87,16 @@ TODO
 
 TODO
 
+### funcplot
+
+specify a function as text, as a function of x, and have it being parsed and plotted. You can specify a range of values to use as x, and optionally also the number of points in between.
+
+```py
+funcplot("log(x)", 0, 1)
+funcplot("1/log(x)", 0, 1)
+funcplot("e^2/log(x)", 0, 1, n=100)
+```
+
 ## Combining plots
 
 - `overlay(p1,p2,p3)`
@@ -112,6 +122,11 @@ Combining plots together should be as easy as `a+b+c`. The following are how the
 - `p1*(-p2)*(-p3)` Stack the plots side by side (independent y axis)
 
 - `(p1 * p2)/(p3* p4)/(p5* p6)` Create a 3x2 grid of plots. TODO: create a null plot object for when you want a place holder for blank cells.
+
+## Plot slicing
+
+- `p1["2018-01-01":"2018-06-01"]` returns a copy of the plot that only contains data within those dates
+- `g1["2018-01-01":"2018-06-01"]` returns a copy of the plot group, such that all the subplots are within those dates
 
 ## Render
 
