@@ -3,3 +3,4 @@ __pycache__/*
 scratchpad.py
 hidden_notes.md
 */*/__pycache__/*
+DELETE_*
