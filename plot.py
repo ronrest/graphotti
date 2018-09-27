@@ -2,6 +2,12 @@
 # TODO: overlload math operators for PlotGroup as well
 # TODO: allow addition of PlotGroups with ProtoPlot objects
 # TODO: allow addition PlotGroups
+
+# TODO: i think that the `share` property might be better stored in the PlotGroup
+#       object rather than the ProtoPlot object. This will allow for the individual
+#       plots to be updatable, and not having to do new copies of the ProtoPlot
+#       objects when set to share=False
+
 import pandas as pd
 from engines import enginemap
 import copy
