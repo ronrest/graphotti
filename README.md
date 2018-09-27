@@ -25,12 +25,20 @@ TODO
 
 ## Simple Introduction for creating plots
 
+The following has already been implemented.
+
 Creating a lineplot is as simple as:
 
 ```py
 from plot import lineplot
-p = lineplot([7,8,9,8,6])
-p.compile(engine="mpl")
+a = lineplot([7,8,9,8,6])
+b = lineplot([9,8,6,9])
+
+# overlay the individual plots
+overlay = a+b
+
+# plots the overlayed plot using the default rendering engine (matplotlib)
+overlay.compile()
 ```
 
 
