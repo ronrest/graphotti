@@ -14,7 +14,10 @@ class MPLEngine(object):
         """ determines the type of plot to compile to and returns the
             compiled object.
         """
-        raise NotImplementedError
+        if obj.type == "lineplot":
+            return plt.lineplot(obj)
+        else:
+            assert False, "invalid value for plot type"
 
     def scatter(self, obj):
         raise NotImplementedError

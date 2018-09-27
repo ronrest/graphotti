@@ -50,13 +50,13 @@ class ProtoPlot(object):
         self.minorgrid = True
 
         self.engine = "mpl"
-        self.type = ptype
+        self.type = ptype # plot type
         self.share = True
 
     def compile(self, engine=None):
-        raise NotImplementedError
         if engine is None:
             engine = self.engine
+        return enginemap[self.engine].compile(self)
 
     def plot(self, engine=None, file=None):
         raise NotImplementedError
