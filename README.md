@@ -34,7 +34,7 @@ from plot import lineplot
 a = lineplot([7,8,9,8,6])
 b = lineplot([9,8,6,9])
 
-# overlay the individual plots
+# overlay the individual plots (sharing the same y axis)
 overlay = a+b
 
 # plots the overlayed plot using the default rendering engine (matplotlib)
@@ -42,6 +42,16 @@ overlay.compile()
 ```
 
 ![image](imgs/overlay_example.jpg)
+
+```py
+# overlay plots, with independent y axes
+overlay = a+-b
+
+# plots the overlayed plot using the default rendering engine (matplotlib)
+overlay.compile()
+```
+
+![image](imgs/overlay_example_independent_y.jpg)
 
 
 ## Contributing
