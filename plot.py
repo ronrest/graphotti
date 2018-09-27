@@ -16,6 +16,12 @@ class Ax(object):
 
 
 class ProtoPlot(object):
+    # TODO: Implement slicing operators.
+    #        p1[start: end]
+    #
+    # TODO: Implement mathematical arithemtic operators for combining plots
+    #       p1+p2+p3
+
     def __init__(self, x, y=None, z=None,
                 color=None, opacity=1.0,
                 size=1, width=1,
