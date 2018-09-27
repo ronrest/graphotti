@@ -28,7 +28,7 @@ This project is therefore guided by the folloiwng principles:
     - It should be quick and easy to plot functions such as `sin` or `cos` or any other math functions easily, in order to get an intuition of what they do. Ideally it should be done by just writing a math formula in text, without having to manually create your own x and y arrays using math libraries.
     - eg: `funcplot("exp(x)/(1+exp(x))")`
 
-The aim is not to be a highly customizable plotting library like matplotlib or plotly, but just customizable enough to be useful for the porposes of common exploratory data analysis tasks used by a data scientist, with minimal friction or overhead. It is designed to be streamlined so that data scientists can spend time exploring and less time writing code.  
+The aim is not to be a highly customizable plotting library like matplotlib or plotly, but just customizable enough to be useful for the porposes of common exploratory data analysis tasks used by a data scientist, with minimal friction or overhead. It is designed to be streamlined so that data scientists can spend time exploring and less time writing code.
 
 ## Primitives
 
