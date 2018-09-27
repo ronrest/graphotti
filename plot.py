@@ -56,7 +56,7 @@ class ProtoPlot(object):
     def compile(self, engine=None):
         if engine is None:
             engine = self.engine
-        return enginemap[self.engine].compile(self)
+        return enginemap[engine].compile(self)
 
     def plot(self, engine=None, file=None):
         raise NotImplementedError
