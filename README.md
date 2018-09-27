@@ -41,6 +41,8 @@ overlay = a+b
 overlay.compile()
 ```
 
+![image](imgs/overlay_example.jpg)
+
 
 ## Contributing
 
