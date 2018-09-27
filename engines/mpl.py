@@ -19,6 +19,19 @@ class MPLEngine(object):
         else:
             assert False, "invalid value for plot type"
 
+    def compilegroup(self, group):
+        if group.type == "overlay":
+            # Assume for the time being that ALL the items in the group are
+            # low level plot objects of type lineplot
+            for i, obj in enumerate(group.items):
+                if i == 0:
+                    fig, ax = plt.lineplot(p=obj, ax=None, figsize=(10,6))
+                else:
+                    fig, ax = plt.lineplot(p=obj, ax=ax)
+            return fig, ax
+        else:
+            assert False, "This group type {} is not implemented yet".format(group.type)
+
     def scatter(self, obj):
         raise NotImplementedError
 
