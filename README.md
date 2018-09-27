@@ -45,7 +45,7 @@ overlay.compile()
 
 ```py
 # overlay plots, with independent y axes
-overlay = a+-b
+overlay = a-b
 
 # plots the overlayed plot using the default rendering engine (matplotlib)
 overlay.compile()
