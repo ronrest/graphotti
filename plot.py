@@ -18,24 +18,40 @@ class Ax(object):
 class ProtoPlot(object):
     def __init__(self, x, y=None, z=None,
                 color=None, opacity=1.0,
+                size=1, width=1,
+                labels=None,
                 title="plot", name="plot",
                 scalex="linear", scaley="linear", scalez="linear",
                 ptype="scatter",
+                start=None, end=None
                 ):
-        self.x = []
-        self.y = []
-        self.z = []
-        self.labels = []
+        self.x = x
+        self.y = y
+        self.z = z
+        self.labels = labels
 
-        self.scalex = "linear"
-        self.scaley = "linear"
-        self.scaley = "linear"
+        self.start = start
+        self.end = end
 
-        self.title = "plot"
-        self.name = "plot"
+        self.scalex = scalex
+        self.scaley = scaley
+        self.scaley = scalez
+
+        self.color = color
+        self.opacity = opacity
+        self.size = size
+        self.width = width
+
+        self.title = title
+        self.name = name
         self.ax = Ax()
+
+        self.majorgrid = True
+        self.minorgrid = True
+
         self.engine = "mpl"
         self.type = ptype
+        self.share = True
 
     def compile(self, engine=None):
         raise NotImplementedError
