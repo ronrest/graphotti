@@ -34,7 +34,7 @@ def lineplot(p, ax=None, figsize=(10,6)):
     else:
         is_new_fig = False
         fig = ax.get_figure()
-        if ~p.share:
+        if not p.share:
             ax = ax.twinx() # plot that shares only the x axis, but not y
 
     # Plot it!
