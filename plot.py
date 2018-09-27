@@ -1,3 +1,4 @@
+import pandas as pd
 from engines import enginemap
 
 class Ax(object):
@@ -74,3 +75,30 @@ class ProtoPlot(object):
             # Either save the plot to file, or show it.
             pass
         # TODO: handle of showing the plot differently depending on the engine
+
+
+
+# ##############################################################################
+#                                        PLOT FUNCTIONS
+# ##############################################################################
+def lineplot(x, y=None,
+    color=None, opacity=1.0, size=1, width=1,
+    labels=None, title="plot", name="line",
+    scalex="linear", scaley="linear",
+    ):
+    """ Creates a lineplot object """
+    n = len(x)
+    if y is None:
+        y = x
+        if isinstance(y, pd.Series):
+            x = list(y.index)
+        else:
+            x = list(range(n))
+
+    return ProtoPlot(x=x, y=y,
+                color=color, opacity=opacity,
+                size=size, width=width,
+                labels=labels,
+                title=title, name=name,
+                scalex=scalex, scaley=scaley,
+                ptype="lineplot")
