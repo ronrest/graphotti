@@ -76,6 +76,19 @@ class ProtoPlot(object):
             pass
         # TODO: handle of showing the plot differently depending on the engine
 
+class PlotGroup(object):
+    def __init__(self, items=[], engine="mpl", type="overlay"):
+        self.items = items
+        self.type = type
+        self.engine = engine
+
+    def compile(self, engine=None):
+        if engine is None:
+            engine = self.engine
+        return enginemap[engine].compilegroup(self)
+
+    def plot(self, engine=None, file=None):
+        raise NotImplementedError
 
 
 # ##############################################################################
