@@ -23,8 +23,7 @@ class ProtoEngine(object):
         """ determines the type of plot to compile to and returns the
             compiled object.
         """
-        raise NotImplem entedError
-
+        raise NotImplementedError
 
     def scatter(self, obj):
         raise NotImplementedError
