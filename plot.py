@@ -85,7 +85,10 @@ class ProtoPlot(object):
         return copy.copy(self)
 
     def __add__(self, other):
-        return PlotGroup([self, other], type="overlay", engine=self.engine)
+        return PlotGroup([self, other], type="overlay", engine=self.engine, share=True)
+
+    def __sub__(self, other):
+        return PlotGroup([self, -other], type="overlay", engine=self.engine, share=False)
 
     def __neg__(self):
         x = self.copy()
