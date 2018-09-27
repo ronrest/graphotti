@@ -25,8 +25,15 @@ TODO
 
 ## Simple Introduction for creating plots
 
-TODO
+Creating a lineplot is as simple as:
+
+```py
+from plot import lineplot
+p = lineplot([7,8,9,8,6])
+p.compile(engine="mpl")
+```
+
 
 ## Contributing
 
-See the [contributing.md](contributing.md) file for details on how to contribute to this project. 
+See the [contributing.md](contributing.md) file for details on how to contribute to this project.
