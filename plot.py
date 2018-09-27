@@ -4,6 +4,7 @@
 # TODO: allow addition PlotGroups
 import pandas as pd
 from engines import enginemap
+import copy
 
 class Ax(object):
     def __init__(self):
@@ -80,10 +81,16 @@ class ProtoPlot(object):
             pass
         # TODO: handle of showing the plot differently depending on the engine
 
+    def copy(self):
+        return copy.copy(self)
+
     def __add__(self, other):
         return PlotGroup([self, other], type="overlay", engine=self.engine)
 
-
+    def __neg__(self):
+        x = self.copy()
+        x.share = False
+        return x
 
 class PlotGroup(object):
     def __init__(self, items=[], engine="mpl", type="overlay"):
