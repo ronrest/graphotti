@@ -6,6 +6,7 @@ plotly = PlotlyEngine()
 
 enginemap = dict(
     mpl = mpl,
+    ply=plotly,
     plotly=plotly,
     )
 
