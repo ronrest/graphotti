@@ -108,6 +108,14 @@ class ProtoPlot(object):
         x.share = False
         return x
 
+    def __getitem__(self, sliced):
+        new = self.copy()
+        new.x = new.x[sliced]
+        new.y = new.y[sliced]
+        new.z = new.z if new.z is None else new.z[sliced]
+        new.labels = new.labels if new.labels is None else new.labels[sliced]
+        return new
+
 
 class PlotGroup(object):
     def __init__(self, items=[], engine="mpl", type="overlay", share=True, legend="br", title="Plot"):
@@ -156,6 +164,13 @@ class PlotGroup(object):
             new.items.append(other_item)
         return new
 
+    def __getitem__(self, sliced):
+        # BUG: it is modifying the data in place, it should return a copy
+        #      leaving the original data unsliced
+        new = self.copy()
+        for i, item in enumerate(self.items):
+            new.items[i] = item[sliced]
+        return new
 
 
 
