@@ -22,9 +22,10 @@ class Ax(object):
         self.ymax = None
         self.zmax = None
 
-        self.xangle = 0
-        self.yangle = 0
-        self.zangle = 0
+        # the following are superceded b xrot, yrot, zrot
+        # self.xangle = 0
+        # self.yangle = 0
+        # self.zangle = 0
 
 
 class ProtoPlot(object):
@@ -35,11 +36,12 @@ class ProtoPlot(object):
     #       p1+p2+p3
 
     def __init__(self, x, y=None, z=None,
-                color=None, opacity=1.0,
+                color=None, alpha=1.0,
                 size=1, width=1,
                 labels=None,
                 title="plot", name="plot",
                 scalex="linear", scaley="linear", scalez="linear",
+                legend="br",
                 ptype="scatter",
                 start=None, end=None
                 ):
@@ -47,6 +49,7 @@ class ProtoPlot(object):
         self.y = y
         self.z = z
         self.labels = labels
+        self.legend = legend
 
         self.start = start
         self.end = end
@@ -55,8 +58,16 @@ class ProtoPlot(object):
         self.scaley = scaley
         self.scaley = scalez
 
+        self.xlabel = "x"
+        self.ylabel = "y"
+        self.zlabel = "z"
+
+        self.xrot = 0
+        self.yrot = 0
+        self.zrot = 0
+
         self.color = color
-        self.opacity = opacity
+        self.alpha = alpha
         self.size = size
         self.width = width
 
@@ -77,24 +88,24 @@ class ProtoPlot(object):
         return enginemap[engine].compile(self)
 
     def plot(self, engine=None, file=None):
-        raise NotImplementedError
         if engine is None:
             engine = self.engine
-        compiled = self.compile(engine=engine)
 
         if file is not None:
             # Either save the plot to file, or show it.
-            pass
-        # TODO: handle of showing the plot differently depending on the engine
+            raise NotImplementedError
+
+        enginemap[engine].plot(self)
+
 
     def copy(self):
         return copy.copy(self)
 
     def __add__(self, other):
-        return PlotGroup([self, other], type="overlay", engine=self.engine, share=True)
+        return PlotGroup([self, other], type="overlay", engine=self.engine, share=True, legend=self.legend)
 
     def __sub__(self, other):
-        return PlotGroup([self, -other], type="overlay", engine=self.engine, share=False)
+        return PlotGroup([self, -other], type="overlay", engine=self.engine, share=False, legend=self.legend)
 
     def __neg__(self):
         x = self.copy()
@@ -102,12 +113,13 @@ class ProtoPlot(object):
         return x
 
 class PlotGroup(object):
-    def __init__(self, items=[], engine="mpl", type="overlay", share=True):
+    def __init__(self, items=[], engine="mpl", type="overlay", share=True, legend="br"):
         # TODO: implement the use of share being passed as parameter
         self.items = items
         self.type = type
         self.engine = engine
         self.share = share
+        self.legend = legend
 
     def compile(self, engine=None):
         if engine is None:
@@ -115,14 +127,16 @@ class PlotGroup(object):
         return enginemap[engine].compilegroup(self)
 
     def plot(self, engine=None, file=None):
-        raise NotImplementedError
+        if engine is None:
+            engine = self.engine
+        return enginemap[engine].plotgroup(self)
 
 
 # ##############################################################################
 #                                        PLOT FUNCTIONS
 # ##############################################################################
 def lineplot(x, y=None,
-    color=None, opacity=1.0, size=1, width=1,
+    color=None, alpha=1.0, size=1, width=1,
     labels=None, title="plot", name="line",
     scalex="linear", scaley="linear",
     ):
@@ -136,7 +150,7 @@ def lineplot(x, y=None,
             x = list(range(n))
 
     return ProtoPlot(x=x, y=y,
-                color=color, opacity=opacity,
+                color=color, alpha=alpha,
                 size=size, width=width,
                 labels=labels,
                 title=title, name=name,

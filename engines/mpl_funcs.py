@@ -19,14 +19,12 @@ def setgrid(ax, major=True, minor=False):
         ax.grid(b=True, which='minor', color='#999999', linestyle='-', alpha=0.7, linewidth=0.5)
 
 
-def lineplot(p, ax=None, figsize=(10,6)):
-    """
-    p: graphotti plot object
-    # sharey: share the yaxis (for when overlaying)
-    """
-    n = len(p.x)
 
-    # Plot into existing axis, otherwise create a new figure
+def lineplot(p, ax=None, legend="br", figsize=(10,6), timeplot=False, dateformat="%Y-%m-%d %H%M", color=None):
+    # title="Timeline Plot",
+    majorgrid=True
+    minorgrid=False
+    # plot into existing axis
     if ax is None:
         is_new_fig = True
         fig, ax = plt.subplots(figsize=figsize)
@@ -35,20 +33,27 @@ def lineplot(p, ax=None, figsize=(10,6)):
         is_new_fig = False
         fig = ax.get_figure()
         if not p.share:
-            ax = ax.twinx() # plot that shares only the x axis, but not y
+            ax = ax.twinx()
 
-    # Plot it!
-    ax.plot(p.x, p.y, color=p.color,  label=p.name, linewidth=p.width)
+    # plot it
+    color = color if p.color is None else p.color
+    ax.plot(p.x, p.y, color=color,  label=p.name, linewidth=p.width, alpha=p.alpha)
     if is_new_fig:
         plt.xticks(rotation=-30, ha="left")
-        ax.set_xlabel("TODO")
-        ax.set_ylabel("TODO")
-        # ax.set_xlabel(p.ax.xlabel)
-        # ax.set_ylabel(p.ax.ylabel)
-        setgrid(ax, major=p.majorgrid, minor=p.minorgrid)
-        # ax.xaxis.set_major_formatter(mpldates.DateFormatter(dateformat))
-        # ax.xaxis.set_minor_formatter(mpldates.DateFormatter(dateformat))
-    ax.legend(loc="lower right", title="", frameon=False,  fontsize=8)
+        ax.set_xlabel(p.xlabel)
+        ax.set_ylabel(p.ylabel)
+        setgrid(ax, major=majorgrid, minor=minorgrid)
+        if timeplot:
+            ax.xaxis.set_major_formatter(mpldates.DateFormatter(dateformat))
+            ax.xaxis.set_minor_formatter(mpldates.DateFormatter(dateformat))
+    if legend is not None:
+        legendmap = {"br": "lower right", "tr": "upper right"}
+
+        # Get lists of all plotted line objects and their labels
+        lines =  [line for axx in fig.axes for line in axx.lines]
+        labs = [line.get_label() for line in lines]
+        ax.legend(lines, labs, loc=legendmap.get(legend, "lower_right"), title="", frameon=False,  fontsize=8)
+
     return fig, ax
 
 
