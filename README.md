@@ -81,13 +81,23 @@ The first positional argument to the `plot()` function allows you to select whic
 Possible values are:
 
 - `"mpl"` Use Matplotlib
+- `"plotly"` or `"ply"` Use plotly
 
-**NOTE :** Currently only matplotlib is implemented, but plotly will soon be added.
 
-EXAMPLE:
+EXAMPLES:
 
 ```py
+# Plot using matplotlib explicitly
 overlay.plot("mpl")
+
+# Save as an image using matplotlib explicitly
+overlay.plot("mpl", file="myplot.jpg")
+
+# Plot using Plotly
+overlay.plot("ply")
+
+# Save as an interactive HTML plot using Plotly
+overlay.plot("ply", file="myplot.html")
 ```
 
 
