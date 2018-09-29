@@ -74,6 +74,23 @@ overlay.plot(file="myplot.jpg")
 ```
 
 
+## Chosing Rendering Engines
+
+The first positional argument to the `plot()` function allows you to select which renreding engine to use to render the plot. By default, the rendering engine used is Matplotlib.
+
+Possible values are:
+
+- `"mpl"` Use Matplotlib
+
+**NOTE :** Currently only matplotlib is implemented, but plotly will soon be added.
+
+EXAMPLE:
+
+```py
+overlay.plot("mpl")
+```
+
+
 
 ## Contributing
 
