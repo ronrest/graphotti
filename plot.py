@@ -110,13 +110,14 @@ class ProtoPlot(object):
 
 
 class PlotGroup(object):
-    def __init__(self, items=[], engine="mpl", type="overlay", share=True, legend="br"):
+    def __init__(self, items=[], engine="mpl", type="overlay", share=True, legend="br", title="Plot"):
         # TODO: implement the use of share being passed as parameter
         self.items = items
         self.type = type
         self.engine = engine
         self.share = share
         self.legend = legend
+        self.title = title
 
     def compile(self, engine=None):
         if engine is None:

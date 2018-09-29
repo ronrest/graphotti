@@ -1,9 +1,12 @@
 from . mpl import MPLEngine
+from . plotly import PlotlyEngine
+
 mpl = MPLEngine()
+plotly = PlotlyEngine()
 
 enginemap = dict(
     mpl = mpl,
-    plotly=None,
+    plotly=plotly,
     )
 
 
