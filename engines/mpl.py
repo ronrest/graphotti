@@ -24,13 +24,19 @@ class MPLEngine(object):
     def __init__(self):
         pass
 
-    def plot(self, obj):
+    def plot(self, obj, file=None):
         fig, ax = self.compile(obj)
-        fig.show()
+        if file is None:
+            fig.show()
+        else:
+            fig.savefig(file)
 
-    def plotgroup(self, group):
+    def plotgroup(self, group, file=None):
         fig, ax = self.compilegroup(group)
-        fig.show()
+        if file is None:
+            fig.show()
+        else:
+            fig.savefig(file)
 
     def compile(self, obj):
         """ determines the type of plot to compile to and returns the

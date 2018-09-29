@@ -91,11 +91,7 @@ class ProtoPlot(object):
         if engine is None:
             engine = self.engine
 
-        if file is not None:
-            # Either save the plot to file, or show it.
-            raise NotImplementedError
-
-        enginemap[engine].plot(self)
+        enginemap[engine].plot(self, file=file)
 
 
     def copy(self):
@@ -130,7 +126,7 @@ class PlotGroup(object):
     def plot(self, engine=None, file=None):
         if engine is None:
             engine = self.engine
-        return enginemap[engine].plotgroup(self)
+        return enginemap[engine].plotgroup(self, file=file)
 
     def copy(self):
         # TODO: see if this is a proper copy
