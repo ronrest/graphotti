@@ -3,7 +3,22 @@ MATPLOTLIB ENGINE
 """
 from . import mpl_funcs as plt
 
-COLORS = ["red", "blue", "green", "purple", "yellow", "pink", "gray", "orange"]
+COLORS = [
+    "#4286f4", # blue
+    "#f49a41", # orange
+    "#7cbf5b", # green
+    "#a578ed", # lavender
+    "#ed7d78", # guava
+    "#fce06f", # yellow
+    "#7be5ce", # aqua
+    "#e87df2", # pink
+    "#42874e", # dark green
+    "#8c7646", # honey brown
+    "#314b6d", # dark blue
+    "#70767f", # grey
+    "#683d3b", # terracota
+    "#50335b", # dark purple
+    ]
 
 class MPLEngine(object):
     def __init__(self):
