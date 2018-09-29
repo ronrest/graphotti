@@ -25,30 +25,42 @@ TODO
 
 ## Simple Introduction for creating plots
 
-The following has already been implemented.
-
 Creating a lineplot is as simple as:
+
+```py
+a = lineplot([7,8,9,8,6])
+a.plot()
+```
+
+![image}](imgs/single_plot.jpg)
+
+
+## Combining Plots using Plot Arithmetic
+
+You can use the `+` and `-` operators to overlay plots on top of each other.
+
+- `+` makes the plots share the same y axis
+- `-` makes the plots on the right hand side of the operator use its own independent y axis
+
+In the following example, three plots are created, overlayed on top of each other, and all sharing the same y axis.
 
 ```py
 from plot import lineplot
 a = lineplot([7,8,9,8,6])
-b = lineplot([9,8,6,9])
+b = lineplot([2,1,3,2])
+c= lineplot([11,15,10,9,5])
 
-# overlay the individual plots (sharing the same y axis)
-overlay = a+b
-
-# plots the overlayed plot using the default rendering engine (matplotlib)
-overlay.compile()
+overlay = a+b+c
+overlay.plot()
 ```
 
 ![image](imgs/overlay_example.jpg)
 
-```py
-# overlay plots, with independent y axes
-overlay = a-b
+In the following example, the three plots are overlayed but the final plot uses its own independent y axis.
 
-# plots the overlayed plot using the default rendering engine (matplotlib)
-overlay.compile()
+```py
+overlay = a+b-c
+overlay.plot()
 ```
 
 ![image](imgs/overlay_example_independent_y.jpg)
