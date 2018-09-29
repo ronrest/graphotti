@@ -65,6 +65,15 @@ overlay.plot()
 
 ![image](imgs/overlay_example_independent_y.jpg)
 
+## Saving To File
+
+Save plots by passing a file path string to the `file` argument when calling `plot()`.
+
+```py
+overlay.plot(file="myplot.jpg")
+```
+
+
 
 ## Contributing
 
