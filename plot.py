@@ -112,6 +112,7 @@ class ProtoPlot(object):
         x.share = False
         return x
 
+
 class PlotGroup(object):
     def __init__(self, items=[], engine="mpl", type="overlay", share=True, legend="br"):
         # TODO: implement the use of share being passed as parameter
@@ -130,6 +131,35 @@ class PlotGroup(object):
         if engine is None:
             engine = self.engine
         return enginemap[engine].plotgroup(self)
+
+    def copy(self):
+        # TODO: see if this is a proper copy
+        return copy.copy(self)
+
+    def __add__(self, other):
+        new = self.copy()
+        if isinstance(other, PlotGroup):
+            new.items.extend(other.items)
+        elif isinstance(other, ProtoPlot):
+            new.items.append(other)
+        return new
+
+    def __sub__(self, other):
+        # TODO: need to check if this is modifying the original `other` group,
+        #       or applying share=False to a new object
+        new = self.copy()
+        if isinstance(other, PlotGroup):
+            other_items = other.items
+            other_items[0].share = False
+            new.items.extend(other_items)
+        elif isinstance(other, ProtoPlot):
+            # TODO: this one is totally modifying the original object. Need to change this
+            other_item = other
+            other.share = False
+            new.items.append(other_item)
+        return new
+
+
 
 
 # ##############################################################################
