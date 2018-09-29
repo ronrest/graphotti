@@ -65,6 +65,34 @@ overlay.plot()
 
 ![image](imgs/overlay_example_independent_y.jpg)
 
+
+## Slicing Plots
+
+Just like you can slice lists, and arrays to get a subset of the data, you can take a slice of a plot object to get a segment of the plot. This is useful if you want to zoom in and focus on a small region of the plot.
+
+EXAMPLE:
+
+```py
+a = lineplot([5,7,8,8,7,5,2,5,6,5,4,2,3])
+b = lineplot([2,1,3,2,4,5,4,2,3,2,3,1,1,2,0])
+c = lineplot([4,6,5,3,6,5,7,4,5,3,5,2,1,3,4])
+overlay = a+b+c
+
+# Unsliced plot
+overlay.plot()
+```
+
+![image}](imgs/unsliced.jpg)
+
+
+```py
+# Sliced plot
+overlay[6:10].plot()
+```
+
+![image](imgs/sliced.jpg)
+
+
 ## Saving To File
 
 Save plots by passing a file path string to the `file` argument when calling `plot()`.
