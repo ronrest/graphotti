@@ -9,8 +9,13 @@ class MPLEngine(object):
     def __init__(self):
         pass
 
-    def plot(self, compiled):
-        raise NotImplementedError
+    def plot(self, obj):
+        fig, ax = self.compile(obj)
+        fig.show()
+
+    def plotgroup(self, group):
+        fig, ax = self.compilegroup(group)
+        fig.show()
 
     def compile(self, obj):
         """ determines the type of plot to compile to and returns the
