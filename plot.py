@@ -80,7 +80,7 @@ class ProtoPlot(object):
 
         self.engine = "mpl"
         self.type = ptype # plot type
-        self.share = True
+        # self.share = True
 
     def compile(self, engine=None):
         if engine is None:
@@ -98,15 +98,15 @@ class ProtoPlot(object):
         return copy.copy(self)
 
     def __add__(self, other):
-        return PlotGroup([self, other], type="overlay", engine=self.engine, share=True, legend=self.legend)
+        return PlotGroup([self, other], type="overlay", engine=self.engine, sharey=[True, True], legend=self.legend)
 
     def __sub__(self, other):
-        return PlotGroup([self, -other], type="overlay", engine=self.engine, share=False, legend=self.legend)
+        return PlotGroup([self, other], type="overlay", engine=self.engine, sharey=[True, False], legend=self.legend)
 
-    def __neg__(self):
-        x = self.copy()
-        x.share = False
-        return x
+    # def __neg__(self):
+    #     x = self.copy()
+    #     x.share = False
+    #     return x
 
     def __getitem__(self, sliced):
         new = self.copy()
@@ -118,12 +118,14 @@ class ProtoPlot(object):
 
 
 class PlotGroup(object):
-    def __init__(self, items=[], engine="mpl", type="overlay", share=True, legend="br", title="Plot"):
+    def __init__(self, items=[], engine="mpl", type="overlay", sharex=None, sharey=None, legend="br", title="Plot"):
         # TODO: implement the use of share being passed as parameter
         self.items = items
+        self.sharex = [True for item in items]if sharex is None else sharex
+        self.sharey = [True for item in items]if sharey is None else sharey
         self.type = type
         self.engine = engine
-        self.share = share
+        #self.share = share
         self.legend = legend
         self.title = title
 
@@ -145,8 +147,12 @@ class PlotGroup(object):
         new = self.copy()
         if isinstance(other, PlotGroup):
             new.items.extend(other.items)
+            new.sharex.extend(other.sharex)
+            new.sharey.extend(other.sharey)
         elif isinstance(other, ProtoPlot):
             new.items.append(other)
+            new.sharex.append(True)
+            new.sharey.append(True)
         return new
 
     def __sub__(self, other):
@@ -154,14 +160,20 @@ class PlotGroup(object):
         #       or applying share=False to a new object
         new = self.copy()
         if isinstance(other, PlotGroup):
-            other_items = other.items
-            other_items[0].share = False
-            new.items.extend(other_items)
+            new.items.extend(other.items)
+            new.sharex.extend(other.sharex)
+
+            other_sharey = other.sharey.copy()
+            other_sharey[0] = False
+            new.sharey.extend(other_sharey)
+
         elif isinstance(other, ProtoPlot):
             # TODO: this one is totally modifying the original object. Need to change this
             other_item = other
-            other.share = False
-            new.items.append(other_item)
+            # other.share = False
+            new.items.append(other)
+            new.sharex.append(True)
+            new.sharey.append(False)
         return new
 
     def __getitem__(self, sliced):
