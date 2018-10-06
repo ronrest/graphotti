@@ -1,5 +1,5 @@
-from . mpl import MPLEngine
-from . plotly import PlotlyEngine
+from . mpl_engine import MPLEngine
+from . plotly_engine import PlotlyEngine
 
 mpl = MPLEngine()
 plotly = PlotlyEngine()
