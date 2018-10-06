@@ -20,7 +20,7 @@ def setgrid(ax, major=True, minor=False):
 
 
 
-def lineplot(p, ax=None, legend="br", figsize=(10,6), timeplot=False, dateformat="%Y-%m-%d %H%M", color=None):
+def lineplot(p, ax=None, legend="br", figsize=(10,6), timeplot=False, dateformat="%Y-%m-%d %H%M", color=None, sharex=True, sharey=True):
     # title="Timeline Plot",
     majorgrid=True
     minorgrid=False
@@ -32,7 +32,7 @@ def lineplot(p, ax=None, legend="br", figsize=(10,6), timeplot=False, dateformat
     else:
         is_new_fig = False
         fig = ax.get_figure()
-        if not p.share:
+        if not sharey:
             ax = ax.twinx()
 
     # plot it

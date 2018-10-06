@@ -51,6 +51,8 @@ class MPLEngine(object):
         if group.type == "overlay":
             n_items = len(group.items)
             ncolors = len(COLORS)
+            sharey = [True for _ in n_items] if group.sharey is None else group.sharey
+            sharex = [True for _ in n_items] if group.sharex is None else group.sharex
             # Assume for the time being that ALL the items in the group are
             # low level plot objects of type lineplot
             for i, obj in enumerate(group.items):
@@ -58,9 +60,9 @@ class MPLEngine(object):
                 # color = COLORS[i%ncolors] if obj.color is None else obj.color
                 color = COLORS[i%ncolors]
                 if i == 0:
-                    fig, ax = plt.lineplot(p=obj, ax=None, figsize=(10,6), legend=showlegend, color=color)
+                    fig, ax = plt.lineplot(p=obj, ax=None, figsize=(10,6), legend=showlegend, color=color, sharex=sharex[i], sharey=sharey[i])
                 else:
-                    fig, ax = plt.lineplot(p=obj, ax=ax, legend=showlegend, color=color)
+                    fig, ax = plt.lineplot(p=obj, ax=ax, legend=showlegend, color=color, sharex=sharex[i], sharey=sharey[i])
             return fig, ax
         else:
             assert False, "This group type {} is not implemented yet".format(group.type)
