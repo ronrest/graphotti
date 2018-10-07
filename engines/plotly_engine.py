@@ -66,7 +66,7 @@ class PlotlyEngine(object):
             else:
                 assert False, "invalid value for plot type"
 
-        fig = plt.create_figure(traces=traces, title=group.title, xlabel=group.items[0].xlabel, ylabel=group.items[0].ylabel)
+        fig = plt.create_figure(traces=traces, title=group.title, xlabel=group.items[0].xlabel, ylabel=group.items[0].ylabel, sharey=group.sharey)
         return fig
 
 

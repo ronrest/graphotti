@@ -8,17 +8,29 @@ import plotly.graph_objs as go
 
 CATEGORICAL_COLORS = ["blue", "orange", "green", "purple", "red", "pink", "grey"]
 
-def create_figure(traces, title, xlabel="x", ylabel="y"):
-    layout = dict(
+def create_figure(traces, title, xlabel="x", ylabel="y", sharey=None):
+    n = len(traces)
+    last_shared_y_axis = 1
+    sharey = [True for _ in range(n)] if sharey is None else sharey
+    layout = go.Layout(
         title=title,
         hovermode="closest",
         xaxis=dict(
             title=xlabel,
-        ),
-        yaxis=dict(
-            title=ylabel,
+            ),
         )
-        )
+    for i in range(len(traces)):
+        if not sharey[i]:
+            last_shared_y_axis = i+1
+            ykey_suffix = "{}".format(last_shared_y_axis) if last_shared_y_axis > 1 else ""
+            layout["yaxis"+ykey_suffix] = dict(
+                                            # title="y{}".format(i),
+                                            overlaying="y" if (i > 0) else None,
+                                            )
+        else:
+            ykey_suffix = "{}".format(last_shared_y_axis) if last_shared_y_axis > 1 else ""
+        traces[i]["yaxis"] = "y"+ykey_suffix
+
 
     fig = go.Figure(data=traces, layout=layout)
     return fig
