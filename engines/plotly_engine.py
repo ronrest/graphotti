@@ -50,6 +50,9 @@ class PlotlyEngine(object):
         if obj.type == "lineplot":
             trace = plt.lineplot(p=obj, color=obj.color)
             traces.append(trace)
+        elif obj.type == "scatter":
+            trace = plt.scatter(p=obj, color=obj.color)
+            traces.append(trace)
         else:
             assert False, "invalid value for plot type"
 
@@ -62,6 +65,9 @@ class PlotlyEngine(object):
         for item in group.items:
             if item.type == "lineplot":
                 trace = plt.lineplot(p=item, color=item.color)
+                traces.append(trace)
+            elif item.type == "scatter":
+                trace = plt.scatter(p=item, color=item.color)
                 traces.append(trace)
             else:
                 assert False, "invalid value for plot type"

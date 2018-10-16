@@ -45,6 +45,16 @@ def lineplot(p, color=None):
                         )
     return trace
 
+def scatter(p, color=None):
+    trace = go.Scatter(x=p.x, y=p.y, text=p.labels,
+                        name=p.name,
+                        mode="markers",
+                        marker=dict(color=p.color,
+                                    size=p.size,
+                                    opacity=p.alpha)
+                        )
+    return trace
+
 # def compare_lines_sep(series, names=None, startdate=None, enddate=None, title="plot", sharey=True, width=1):
 #     """ Plotly implementation of compare lines sep, using same api as the mpl version
 #         FOr where the timeseries are in sepearate dataframes/series, with

@@ -210,3 +210,26 @@ def lineplot(x, y=None,
                 title=title, name=name,
                 scalex=scalex, scaley=scaley,
                 ptype="lineplot")
+
+
+def scatter(x, y=None,
+    color=None, alpha=0.5, size=10, width=1,
+    labels=None, title="plot", name="line",
+    scalex="linear", scaley="linear",
+    ):
+    """ Creates a lineplot object """
+    n = len(x)
+    if y is None:
+        y = x
+        if isinstance(y, pd.Series):
+            x = list(y.index)
+        else:
+            x = list(range(n))
+
+    return ProtoPlot(x=x, y=y,
+                color=color, alpha=alpha,
+                size=size, width=width,
+                labels=labels,
+                title=title, name=name,
+                scalex=scalex, scaley=scaley,
+                ptype="scatter")
