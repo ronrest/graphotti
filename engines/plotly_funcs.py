@@ -18,6 +18,9 @@ def create_figure(traces, title, xlabel="x", ylabel="y", sharey=None):
         xaxis=dict(
             title=xlabel,
             ),
+        yaxis=dict(
+            title=ylabel,
+            ),
         )
     for i in range(len(traces)):
         if not sharey[i]:
