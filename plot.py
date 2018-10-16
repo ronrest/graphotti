@@ -40,6 +40,7 @@ class ProtoPlot(object):
                 size=1, width=1,
                 labels=None,
                 title="plot", name="plot",
+                xlabel="x", ylabel="y", zlabel="z",
                 scalex="linear", scaley="linear", scalez="linear",
                 legend="br",
                 ptype="scatter",
@@ -58,9 +59,9 @@ class ProtoPlot(object):
         self.scaley = scaley
         self.scaley = scalez
 
-        self.xlabel = "x"
-        self.ylabel = "y"
-        self.zlabel = "z"
+        self.xlabel = xlabel
+        self.ylabel = ylabel
+        self.zlabel = zlabel
 
         self.xrot = 0
         self.yrot = 0
@@ -92,7 +93,7 @@ class ProtoPlot(object):
         # overrride plot title
         if title is not None:
             self.title = title
-            
+
         if engine is None:
             engine = self.engine
 
@@ -202,6 +203,7 @@ def lineplot(x, y=None,
     points=False,
     labels=None, title="plot", name="line",
     scalex="linear", scaley="linear",
+    **kwargs
     ):
     """ Creates a lineplot object
     Args:
@@ -221,7 +223,9 @@ def lineplot(x, y=None,
                 labels=labels,
                 title=title, name=name,
                 scalex=scalex, scaley=scaley,
-                ptype="lineplot")
+                ptype="lineplot",
+                **kwargs
+                )
 
     obj.points = points
     return obj
@@ -230,6 +234,7 @@ def scatter(x, y=None,
     color=None, alpha=0.5, size=10, width=1,
     labels=None, title="plot", name="line",
     scalex="linear", scaley="linear",
+    **kwargs
     ):
     """ Creates a lineplot object """
     n = len(x)
@@ -246,4 +251,6 @@ def scatter(x, y=None,
                 labels=labels,
                 title=title, name=name,
                 scalex=scalex, scaley=scaley,
-                ptype="scatter")
+                ptype="scatter",
+                **kwargs
+                )
