@@ -88,7 +88,11 @@ class ProtoPlot(object):
             engine = self.engine
         return enginemap[engine].compile(self)
 
-    def plot(self, engine=None, file=None):
+    def plot(self, engine=None, file=None, title=None):
+        # overrride plot title
+        if title is not None:
+            self.title = title
+            
         if engine is None:
             engine = self.engine
 
@@ -135,7 +139,10 @@ class PlotGroup(object):
             engine = self.engine
         return enginemap[engine].compilegroup(self)
 
-    def plot(self, engine=None, file=None):
+    def plot(self, engine=None, file=None, title=None):
+        # overrride plot title
+        if title is not None:
+            self.title = title
         if engine is None:
             engine = self.engine
         return enginemap[engine].plotgroup(self, file=file)
