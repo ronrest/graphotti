@@ -230,6 +230,10 @@ def lineplot(x, y=None,
     obj.points = points
     return obj
 
+# alias for lineplot
+line = lineplot
+
+
 def scatter(x, y=None,
     color=None, alpha=0.5, size=10, width=1,
     labels=None, title="plot", name="line",
