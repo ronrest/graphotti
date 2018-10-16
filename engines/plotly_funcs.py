@@ -42,7 +42,7 @@ def lineplot(p, color=None):
                         marker=dict(color=p.color,
                                     size=p.size,
                                     opacity=p.alpha),
-                        line=dict(color=p.color if isinstance(p.color, str) else "lightgrey",
+                        line=dict(color=p.color if isinstance(p.color, (str, type(None))) else "lightgrey",
                                     width=p.width,
                                   )
                         )
