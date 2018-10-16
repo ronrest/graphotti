@@ -9,7 +9,7 @@
 #       objects when set to share=False
 
 import pandas as pd
-from engines import enginemap
+from . engines import enginemap
 import copy
 
 class Ax(object):
