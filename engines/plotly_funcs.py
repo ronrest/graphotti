@@ -38,10 +38,13 @@ def create_figure(traces, title, xlabel="x", ylabel="y", sharey=None):
 def lineplot(p, color=None):
     trace = go.Scatter(x=p.x, y=p.y, text=p.labels,
                         name=p.name,
-                        mode="lines",
+                        mode="lines+markers" if p.points else "lines",
                         marker=dict(color=p.color,
                                     size=p.size,
-                                    opacity=p.alpha)
+                                    opacity=p.alpha),
+                        line=dict(color=p.color if isinstance(p.color, str) else "lightgrey",
+                                    width=p.width,
+                                  )
                         )
     return trace
 

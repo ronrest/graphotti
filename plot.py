@@ -70,6 +70,7 @@ class ProtoPlot(object):
         self.alpha = alpha
         self.size = size
         self.width = width
+        self.points = False # whether to draw points or not
 
         self.title = title
         self.name = name
@@ -191,10 +192,14 @@ class PlotGroup(object):
 # ##############################################################################
 def lineplot(x, y=None,
     color=None, alpha=1.0, size=1, width=1,
+    points=False,
     labels=None, title="plot", name="line",
     scalex="linear", scaley="linear",
     ):
-    """ Creates a lineplot object """
+    """ Creates a lineplot object
+    Args:
+        points: (bool) should it also draw the points as markers?
+    """
     n = len(x)
     if y is None:
         y = x
@@ -203,7 +208,7 @@ def lineplot(x, y=None,
         else:
             x = list(range(n))
 
-    return ProtoPlot(x=x, y=y,
+    obj = ProtoPlot(x=x, y=y,
                 color=color, alpha=alpha,
                 size=size, width=width,
                 labels=labels,
@@ -211,6 +216,8 @@ def lineplot(x, y=None,
                 scalex=scalex, scaley=scaley,
                 ptype="lineplot")
 
+    obj.points = points
+    return obj
 
 def scatter(x, y=None,
     color=None, alpha=0.5, size=10, width=1,
