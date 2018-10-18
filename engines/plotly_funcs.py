@@ -52,14 +52,19 @@ def lineplot(p, color=None):
     return trace
 
 def scatter(p, color=None):
+    # if the colors are boolean, color code them as red and green
+    if pd.Series(color).dtype == bool:
+        color = color.astype(np.object).replace([False, True], ['red', 'green'])
+
     trace = go.Scatter(x=p.x, y=p.y, text=p.labels,
                         name=p.name,
                         mode="markers",
-                        marker=dict(color=p.color,
+                        marker=dict(color=color,
                                     size=p.size,
                                     opacity=p.alpha)
                         )
     return trace
+
 
 # def compare_lines_sep(series, names=None, startdate=None, enddate=None, title="plot", sharey=True, width=1):
 #     """ Plotly implementation of compare lines sep, using same api as the mpl version
@@ -93,7 +98,6 @@ def scatter(p, color=None):
 #     return fig, None
 
 
-
 def plotly_scatter(x,y, size=10, color="blue", opacity=0.5, labels=None, title="Scatter Plot", name=None, xlabel="x", ylabel="y", show=True, category_colors=None, marker_mode="markers"):
     """ category_colors: array-like object that contains some kind of category label for each datapoint in x.
                          it is used to assign a different color to each category
@@ -125,6 +129,7 @@ def plotly_scatter(x,y, size=10, color="blue", opacity=0.5, labels=None, title="
     if show:
         iplot(fig)
     return fig
+
 
 
 
