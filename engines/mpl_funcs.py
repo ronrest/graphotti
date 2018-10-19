@@ -146,7 +146,7 @@ def add_legend(ax, position="br"):
     fig = ax.get_figure()
     legendmap = {"br": "lower right", "tr": "upper right"}
     lines, labs = get_legend_labels_from_fig(fig)
-    ax.legend(lines, labs, loc=legendmap.get(position, "lower_right"), title="", frameon=False,  fontsize=8)
+    ax.legend(lines, labs, loc=legendmap.get(position, "lower_right"), title="", frameon=False,  fontsize=10)
 
 
 
