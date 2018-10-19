@@ -45,6 +45,8 @@ class MPLEngine(object):
         if obj.type == "lineplot":
             return plt.lineplot(p=obj, ax=None, figsize=(10,6))
         # TODO: implement scatter
+        elif obj.type == "scatter":
+            return plt.scatterplot(p=obj, ax=None, figsize=(10,6))
         elif obj.type == "step":
             return plt.step_plot(p=obj, ax=None, figsize=(10,6))
         else:
@@ -53,6 +55,9 @@ class MPLEngine(object):
     def intragroup_compile(self, p, ax=None, figsize=(10,6), legend=False, color="blue", sharex=True, sharey=True):
         if p.type == "lineplot":
             return plt.lineplot(p=p, ax=ax, figsize=figsize, legend=legend, color=color, sharex=sharex, sharey=sharey)
+        elif p.type == "scatter":
+            # return plt.scatterplot(p=obj, ax=None, figsize=(10,6))
+            return plt.scatterplot(p=p, ax=ax, figsize=figsize, legend=legend, color=color, sharex=sharex, sharey=sharey)
         elif p.type == "step":
             return plt.step_plot(p=p, ax=ax, figsize=figsize, legend=legend, color=color, sharex=sharex, sharey=sharey)
         else:

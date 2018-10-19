@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 import matplotlib.pyplot as plt
 import matplotlib.dates as mpldates
@@ -96,6 +97,78 @@ def step_plot(p, ax=None, legend="br", figsize=(10,6), timeplot=False, dateforma
     return fig, ax
 
 
+#def scatterplot(x, y, ax=None, color=None, alpha=None, size=None, labels=None, title="Scatterplot", figsize=(10,6), cmap=None):
+def scatterplot(p, ax=None, legend="br", figsize=(10,6), timeplot=False, dateformat="%Y-%m-%d %H%M", color=None, sharex=True, sharey=True):
+    """
+        labels: (None or array-like) label for each data point
+
+    """
+    # TODO: This shares the majority of code with lineplot, share this code in
+    #       a generic function
+    # title="Timeline Plot",
+    majorgrid=True
+    minorgrid=False
+    # plot into existing axis
+    if ax is None:
+        is_new_fig = True
+        fig, ax = plt.subplots(figsize=figsize)
+        fig.suptitle(p.title, fontsize=15)
+    else:
+        is_new_fig = False
+        fig = ax.get_figure()
+        if not sharey:
+            ax = ax.twinx()
+
+    # plot it
+    # TODO: boolean color coded colors
+    color = color if p.color is None else p.color
+    print(type(p.size))
+    size = [sz*10 for sz in p.size] if isinstance(p.size, (list, tuple)) else p.size
+    size = size*10 if isinstance(size, (int, float, np.ndarray, pd.Series)) else size
+    ax.scatter(x=p.x, y=p.y, c=color, alpha=p.alpha, s=size) #cmap=cmap
+
+    if is_new_fig:
+        plt.xticks(rotation=-30, ha="left")
+        ax.set_xlabel(p.xlabel)
+        ax.set_ylabel(p.ylabel)
+        setgrid(ax, major=majorgrid, minor=minorgrid)
+        if timeplot:
+            ax.xaxis.set_major_formatter(mpldates.DateFormatter(dateformat))
+            ax.xaxis.set_minor_formatter(mpldates.DateFormatter(dateformat))
+    if legend is not None:
+        # LEGENT LABELS
+        legendmap = {"br": "lower right", "tr": "upper right"}
+
+        # Get lists of all plotted line objects and their labels
+        lines =  [line for axx in fig.axes for line in axx.lines]
+        labs = [line.get_label() for line in lines]
+        ax.legend(lines, labs, loc=legendmap.get(legend, "lower_right"), title="", frameon=False,  fontsize=8)
+
+
+    # POINT LABELS
+    if p.labels is not None:
+        for xx, yy, label in zip(p.x, p.y, p.labels):
+            plt.annotate(label, xy=(xx, yy), xytext=(7, 0),
+                         textcoords='offset points',
+                         ha='left', va='center')
+    return fig, ax
+
+
+    ######################
+    # if ax is None:
+    #     fig, ax = plt.subplots(figsize=figsize)
+    #     fig.suptitle(title, fontsize=15)
+    # else:
+    #     fig = ax.get_figure()
+    # ax.scatter(x=x, y=y, c=color, alpha=alpha, s=size, cmap=cmap)
+    #
+    # # LABEL - each of the points
+    # if labels is not None:
+    #     for xx, yy, label in zip(x, y, labels):
+    #         plt.annotate(label, xy=(xx, yy), xytext=(7, 0),
+    #                      textcoords='offset points',
+    #                      ha='left', va='center')
+    # return fig, ax
 
 
 
