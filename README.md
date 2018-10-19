@@ -86,6 +86,17 @@ overlay.plot()
 
 ![image](imgs/overlay_example_independent_y.jpg)
 
+You can also overlay plots of different types, eg, below we overlay a lineplot, a step plot, and a scatterplot all on top of each other.
+
+```py
+s = gh.step(x= [1,4,5,6,7,9], y=[0,1,0,1,2,0], name="step plot")
+l = gh.line(x= [0,3,6,7,8,9], y=[1,2,4,1,2,4], name="line plot")
+c = gh.scatter([3,8,2,6,2,4], [4,3,3,2,1,6], labels=["a","b","c","d","e","f"], name="scatter plot")
+overlayed = (l+s+c)
+overlayed.plot(title="Multiple plot types overlayed")
+```
+
+![image}](imgs/overlay_multiple_types.jpg)
 
 ## Slicing Plots
 
