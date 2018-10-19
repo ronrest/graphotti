@@ -47,7 +47,7 @@ init_notebook_mode(connected=True)
 Creating a lineplot is as simple as:
 
 ```py
-a = lineplot([7,8,9,8,6])
+a = gh.line([7,8,9,8,6])
 a.plot()
 ```
 
@@ -55,6 +55,8 @@ a.plot()
 
 
 ## Combining Plots using Plot Arithmetic
+
+### Overlaying plots
 
 You can use the `+` and `-` operators to overlay plots on top of each other.
 
@@ -65,9 +67,9 @@ In the following example, three plots are created, overlayed on top of each othe
 
 ```py
 from plot import lineplot
-a = lineplot([7,8,9,8,6])
-b = lineplot([2,1,3,2])
-c= lineplot([11,15,10,9,5])
+a = gh.line([7,8,9,8,6])
+b = gh.line([2,1,3,2])
+c = gh.line([11,15,10,9,5])
 
 overlay = a+b+c
 overlay.plot()
@@ -92,9 +94,9 @@ Just like you can slice lists, and arrays to get a subset of the data, you can t
 EXAMPLE:
 
 ```py
-a = lineplot([5,7,8,8,7,5,2,5,6,5,4,2,3])
-b = lineplot([2,1,3,2,4,5,4,2,3,2,3,1,1,2,0])
-c = lineplot([4,6,5,3,6,5,7,4,5,3,5,2,1,3,4])
+a = gh.line([5,7,8,8,7,5,2,5,6,5,4,2,3])
+b = gh.line([2,1,3,2,4,5,4,2,3,2,3,1,1,2,0])
+c = gh.line([4,6,5,3,6,5,7,4,5,3,5,2,1,3,4])
 overlay = a+b+c
 
 # Unsliced plot
