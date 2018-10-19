@@ -84,7 +84,11 @@ class ProtoPlot(object):
         self.type = ptype # plot type
         # self.share = True
 
-    def compile(self, engine=None):
+    def compile(self, engine=None, title=None):
+        # overrride plot title
+        if title is not None:
+            self.title = title
+
         if engine is None:
             engine = self.engine
         return enginemap[engine].compile(self)
@@ -135,7 +139,10 @@ class PlotGroup(object):
         self.legend = legend
         self.title = title
 
-    def compile(self, engine=None):
+    def compile(self, engine=None, title=None):
+        # overrride plot title
+        if title is not None:
+            self.title = title
         if engine is None:
             engine = self.engine
         return enginemap[engine].compilegroup(self)

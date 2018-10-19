@@ -81,7 +81,8 @@ class MPLEngine(object):
                 else:
                     #fig, ax =            plt.lineplot(p=obj, ax=ax, legend=showlegend, color=color, sharex=sharex[i], sharey=sharey[i])
                     fig, ax = self.intragroup_compile(p=obj, ax=ax, legend=showlegend, color=color, sharex=sharex[i], sharey=sharey[i])
-
+            # Ad fig title
+            fig.suptitle(group.title, fontsize=15, fontdict={"fontweight": "extra bold"})
             return fig, ax
         else:
             assert False, "This group type {} is not implemented yet".format(group.type)
