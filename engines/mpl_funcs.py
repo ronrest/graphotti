@@ -57,6 +57,44 @@ def lineplot(p, ax=None, legend="br", figsize=(10,6), timeplot=False, dateformat
     return fig, ax
 
 
+def step_plot(p, ax=None, legend="br", figsize=(10,6), timeplot=False, dateformat="%Y-%m-%d %H%M", color=None, sharex=True, sharey=True):
+    # TODO: This shares the majority of code with lineplot, share this code in
+    #       a generic function
+    # title="Timeline Plot",
+    majorgrid=True
+    minorgrid=False
+    # plot into existing axis
+    if ax is None:
+        is_new_fig = True
+        fig, ax = plt.subplots(figsize=figsize)
+        fig.suptitle(p.title, fontsize=15)
+    else:
+        is_new_fig = False
+        fig = ax.get_figure()
+        if not sharey:
+            ax = ax.twinx()
+
+    # plot it
+    color = color if p.color is None else p.color
+    ax.step(p.x, p.y, color=color,  label=p.name, linewidth=p.width, alpha=p.alpha, where="post")
+    if is_new_fig:
+        plt.xticks(rotation=-30, ha="left")
+        ax.set_xlabel(p.xlabel)
+        ax.set_ylabel(p.ylabel)
+        setgrid(ax, major=majorgrid, minor=minorgrid)
+        if timeplot:
+            ax.xaxis.set_major_formatter(mpldates.DateFormatter(dateformat))
+            ax.xaxis.set_minor_formatter(mpldates.DateFormatter(dateformat))
+    if legend is not None:
+        legendmap = {"br": "lower right", "tr": "upper right"}
+
+        # Get lists of all plotted line objects and their labels
+        lines =  [line for axx in fig.axes for line in axx.lines]
+        labs = [line.get_label() for line in lines]
+        ax.legend(lines, labs, loc=legendmap.get(legend, "lower_right"), title="", frameon=False,  fontsize=8)
+
+    return fig, ax
+
 
 
 

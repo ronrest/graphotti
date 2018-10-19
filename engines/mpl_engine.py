@@ -44,6 +44,17 @@ class MPLEngine(object):
         """
         if obj.type == "lineplot":
             return plt.lineplot(p=obj, ax=None, figsize=(10,6))
+        # TODO: implement scatter
+        elif obj.type == "step":
+            return plt.step_plot(p=obj, ax=None, figsize=(10,6))
+        else:
+            assert False, "invalid value for plot type"
+
+    def intragroup_compile(self, p, ax=None, figsize=(10,6), legend=False, color="blue", sharex=True, sharey=True):
+        if p.type == "lineplot":
+            return plt.lineplot(p=p, ax=ax, figsize=figsize, legend=legend, color=color, sharex=sharex, sharey=sharey)
+        elif p.type == "step":
+            return plt.step_plot(p=p, ax=ax, figsize=figsize, legend=legend, color=color, sharex=sharex, sharey=sharey)
         else:
             assert False, "invalid value for plot type"
 
@@ -60,9 +71,12 @@ class MPLEngine(object):
                 # color = COLORS[i%ncolors] if obj.color is None else obj.color
                 color = COLORS[i%ncolors]
                 if i == 0:
-                    fig, ax = plt.lineplot(p=obj, ax=None, figsize=(10,6), legend=showlegend, color=color, sharex=sharex[i], sharey=sharey[i])
+                    #fig, ax = plt.lineplot(p=obj, ax=None, figsize=(10,6), legend=showlegend, color=color, sharex=sharex[i], sharey=sharey[i])
+                    fig, ax = self.intragroup_compile(p=obj, ax=None, figsize=(10,6), legend=showlegend, color=color, sharex=sharex[i], sharey=sharey[i])
                 else:
-                    fig, ax = plt.lineplot(p=obj, ax=ax, legend=showlegend, color=color, sharex=sharex[i], sharey=sharey[i])
+                    #fig, ax =            plt.lineplot(p=obj, ax=ax, legend=showlegend, color=color, sharex=sharex[i], sharey=sharey[i])
+                    fig, ax = self.intragroup_compile(p=obj, ax=ax, legend=showlegend, color=color, sharex=sharex[i], sharey=sharey[i])
+
             return fig, ax
         else:
             assert False, "This group type {} is not implemented yet".format(group.type)

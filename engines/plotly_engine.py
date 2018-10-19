@@ -53,6 +53,9 @@ class PlotlyEngine(object):
         elif obj.type == "scatter":
             trace = plt.scatter(p=obj, color=obj.color)
             traces.append(trace)
+        elif obj.type == "step":
+            trace = plt.step(p=obj, color=obj.color)
+            traces.append(trace)
         else:
             assert False, "invalid value for plot type"
 
@@ -68,6 +71,9 @@ class PlotlyEngine(object):
                 traces.append(trace)
             elif item.type == "scatter":
                 trace = plt.scatter(p=item, color=item.color)
+                traces.append(trace)
+            elif item.type == "step":
+                trace = plt.step(p=item, color=item.color)
                 traces.append(trace)
             else:
                 assert False, "invalid value for plot type"

@@ -258,3 +258,35 @@ def scatter(x, y=None,
                 ptype="scatter",
                 **kwargs
                 )
+
+def step(x, y=None,
+    color=None, alpha=1.0, size=1, width=1,
+    points=False,
+    labels=None, title="plot", name="steps",
+    scalex="linear", scaley="linear",
+    **kwargs
+    ):
+    """ Creates a step plot object
+    Args:
+        points: (bool) should it also draw the points as markers?
+    """
+    n = len(x)
+    if y is None:
+        y = x
+        if isinstance(y, pd.Series):
+            x = list(y.index)
+        else:
+            x = list(range(n))
+
+    obj = ProtoPlot(x=x, y=y,
+                color=color, alpha=alpha,
+                size=size, width=width,
+                labels=labels,
+                title=title, name=name,
+                scalex=scalex, scaley=scaley,
+                ptype="step",
+                **kwargs
+                )
+
+    obj.points = points
+    return obj

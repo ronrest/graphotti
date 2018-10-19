@@ -51,6 +51,21 @@ def lineplot(p, color=None):
                         )
     return trace
 
+def step(p, color=None):
+    trace = go.Scatter(x=p.x, y=p.y, text=p.labels,
+                        name=p.name,
+                        mode="lines+markers" if p.points else "lines",
+                        marker=dict(color=p.color,
+                                    size=p.size,
+                                    opacity=p.alpha),
+                        line=dict(color=p.color if isinstance(p.color, (str, type(None))) else "lightgrey",
+                                    width=p.width,
+                                    shape="hv",
+                                  )
+                        )
+    return trace
+
+
 def scatter(p, color=None):
     # if the colors are boolean, color code them as red and green
     if pd.Series(color).dtype == bool:
