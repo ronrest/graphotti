@@ -260,7 +260,7 @@ def scatter(x, y=None,
                 )
 
 def step(x, y=None,
-    color=None, alpha=1.0, size=1, width=1,
+    color=None, alpha=1.0, size=1, width=2,
     points=False,
     labels=None, title="plot", name="steps",
     scalex="linear", scaley="linear",
