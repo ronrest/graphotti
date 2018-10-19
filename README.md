@@ -21,7 +21,26 @@ Read the [white paper](white_paper.md) for more information about the ambitions 
 
 ## Installing and Setting up
 
-TODO
+In the future this will be a library you can install through `pip`.
+
+However, for the time being you can download this entire repository into your working directory, and import the library into your project using:
+
+```py
+import graphotti as gh
+```
+
+You can also import the following depending on whether you want to render the plots using matplotlib, or plotly.
+
+
+```py
+# For rendering using plotly engine within a jupyter notebook
+from plotly.offline import init_notebook_mode
+init_notebook_mode(connected=True)
+
+# For rendering using matplotlib engine within a jupyter notebook
+%matplotlib inline
+```
+
 
 ## Simple Introduction for creating plots
 
