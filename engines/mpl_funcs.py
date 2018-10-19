@@ -48,12 +48,7 @@ def lineplot(p, ax=None, legend="br", figsize=(10,6), timeplot=False, dateformat
             ax.xaxis.set_major_formatter(mpldates.DateFormatter(dateformat))
             ax.xaxis.set_minor_formatter(mpldates.DateFormatter(dateformat))
     if legend is not None:
-        legendmap = {"br": "lower right", "tr": "upper right"}
-
-        # Get lists of all plotted line objects and their labels
-        lines =  [line for axx in fig.axes for line in axx.lines]
-        labs = [line.get_label() for line in lines]
-        ax.legend(lines, labs, loc=legendmap.get(legend, "lower_right"), title="", frameon=False,  fontsize=8)
+        add_legend(ax, position=legend)
 
     return fig, ax
 
@@ -87,12 +82,7 @@ def step_plot(p, ax=None, legend="br", figsize=(10,6), timeplot=False, dateforma
             ax.xaxis.set_major_formatter(mpldates.DateFormatter(dateformat))
             ax.xaxis.set_minor_formatter(mpldates.DateFormatter(dateformat))
     if legend is not None:
-        legendmap = {"br": "lower right", "tr": "upper right"}
-
-        # Get lists of all plotted line objects and their labels
-        lines =  [line for axx in fig.axes for line in axx.lines]
-        labs = [line.get_label() for line in lines]
-        ax.legend(lines, labs, loc=legendmap.get(legend, "lower_right"), title="", frameon=False,  fontsize=8)
+        add_legend(ax, position=legend)
 
     return fig, ax
 
@@ -122,10 +112,9 @@ def scatterplot(p, ax=None, legend="br", figsize=(10,6), timeplot=False, datefor
     # plot it
     # TODO: boolean color coded colors
     color = color if p.color is None else p.color
-    print(type(p.size))
     size = [sz*10 for sz in p.size] if isinstance(p.size, (list, tuple)) else p.size
     size = size*10 if isinstance(size, (int, float, np.ndarray, pd.Series)) else size
-    ax.scatter(x=p.x, y=p.y, c=color, alpha=p.alpha, s=size) #cmap=cmap
+    ax.scatter(x=p.x, y=p.y, c=color, alpha=p.alpha, s=size, label=p.name) #cmap=cmap
 
     if is_new_fig:
         plt.xticks(rotation=-30, ha="left")
@@ -136,14 +125,7 @@ def scatterplot(p, ax=None, legend="br", figsize=(10,6), timeplot=False, datefor
             ax.xaxis.set_major_formatter(mpldates.DateFormatter(dateformat))
             ax.xaxis.set_minor_formatter(mpldates.DateFormatter(dateformat))
     if legend is not None:
-        # LEGENT LABELS
-        legendmap = {"br": "lower right", "tr": "upper right"}
-
-        # Get lists of all plotted line objects and their labels
-        lines =  [line for axx in fig.axes for line in axx.lines]
-        labs = [line.get_label() for line in lines]
-        ax.legend(lines, labs, loc=legendmap.get(legend, "lower_right"), title="", frameon=False,  fontsize=8)
-
+        add_legend(ax, position=legend)
 
     # POINT LABELS
     if p.labels is not None:
@@ -153,22 +135,18 @@ def scatterplot(p, ax=None, legend="br", figsize=(10,6), timeplot=False, datefor
                          ha='left', va='center')
     return fig, ax
 
+def get_legend_labels_from_fig(fig):
+    axes = fig.axes
+    lines =  [line for axx in axes for line in axx.lines]
+    lines += [line for axx in axes for line in axx.collections]
+    labs = [line.get_label() for line in lines]
+    return lines, labs
 
-    ######################
-    # if ax is None:
-    #     fig, ax = plt.subplots(figsize=figsize)
-    #     fig.suptitle(title, fontsize=15)
-    # else:
-    #     fig = ax.get_figure()
-    # ax.scatter(x=x, y=y, c=color, alpha=alpha, s=size, cmap=cmap)
-    #
-    # # LABEL - each of the points
-    # if labels is not None:
-    #     for xx, yy, label in zip(x, y, labels):
-    #         plt.annotate(label, xy=(xx, yy), xytext=(7, 0),
-    #                      textcoords='offset points',
-    #                      ha='left', va='center')
-    # return fig, ax
+def add_legend(ax, position="br"):
+    fig = ax.get_figure()
+    legendmap = {"br": "lower right", "tr": "upper right"}
+    lines, labs = get_legend_labels_from_fig(fig)
+    ax.legend(lines, labs, loc=legendmap.get(position, "lower_right"), title="", frameon=False,  fontsize=8)
 
 
 
