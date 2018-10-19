@@ -1,5 +1,8 @@
 # Graphotti
 
+![image}](imgs/logo.svg)
+
+
 This is a library for creating plots in python that is guided by the following principles:
 
 - **Simple, intuitive, and consistent api**
