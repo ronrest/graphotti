@@ -4,3 +4,8 @@ scratchpad.py
 hidden_notes.md
 */*/__pycache__/*
 DELETE_*
+*.whl
+graphotti.egg-info/*
+dist/*
+build/*
+*.pyc
