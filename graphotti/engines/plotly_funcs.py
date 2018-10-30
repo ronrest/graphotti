@@ -70,12 +70,15 @@ def scatter(p, color=None):
     # if the colors are boolean, color code them as red and green
     if pd.Series(color).dtype == bool:
         color = color.astype(np.object).replace([False, True], ['red', 'green'])
-
+    print("scatter")
     trace = go.Scatter(x=p.x, y=p.y, text=p.labels,
                         name=p.name,
                         mode="markers",
                         marker=dict(color=color,
                                     size=p.size,
+                                    line = dict(
+                                        width=0,
+                                    ),
                                     opacity=p.alpha)
                         )
     return trace
