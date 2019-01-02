@@ -113,6 +113,13 @@ class ProtoPlot(object):
     def __sub__(self, other):
         return PlotGroup([self, other], type="overlay", engine=self.engine, sharey=[True, False], legend=self.legend)
 
+    def __truediv__(self, other):
+        return PlotGrid([self, other], type="vertical", engine=self.engine, sharey=False, sharex=True, legend=self.legend)
+
+    def __floordiv__(self, other):
+        return PlotGrid([self, other], type="vertical", engine=self.engine, sharey=False, sharex=False, legend=self.legend)
+
+
     # def __neg__(self):
     #     x = self.copy()
     #     x.share = False
