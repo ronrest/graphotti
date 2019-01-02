@@ -120,10 +120,28 @@ class ProtoPlot(object):
 
     def __getitem__(self, sliced):
         new = self.copy()
-        new.x = new.x[sliced]
-        new.y = new.y[sliced]
-        new.z = new.z if new.z is None else new.z[sliced]
-        new.labels = new.labels if new.labels is None else new.labels[sliced]
+
+        # OLD SLICING METHOD
+        # new.x = new.x[sliced]
+        # new.y = new.y[sliced]
+        # new.z = new.z if new.z is None else new.z[sliced]
+        # new.labels = new.labels if new.labels is None else new.labels[sliced]
+
+        # NEW SLICING METHOD
+        df = pd.DataFrame(dict(y=new.y), index=new.x)
+        if new.z is not None:
+            df["z"] = new.z
+        if new.labels is not None:
+            df["labels"] = new.labels
+
+        df = df[sliced]
+        new.x = list(df.index)
+        new.y  = df.y
+        if new.z is not None:
+            new.z = df.z
+        if new.labels is not None:
+            new.labels = df.labels
+
         return new
 
 
