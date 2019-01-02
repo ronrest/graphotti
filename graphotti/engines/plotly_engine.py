@@ -22,6 +22,8 @@ COLORS = [
 
 
 from plotly.offline import plot, iplot
+from plotly import tools
+
 
 class PlotlyEngine(object):
     def __init__(self):
@@ -81,6 +83,62 @@ class PlotlyEngine(object):
         fig = plt.create_figure(traces=traces, title=group.title, xlabel=group.items[0].xlabel, ylabel=group.items[0].ylabel, sharey=group.sharey)
         return fig
 
+
+    def compilegrid(self, grid_items):
+        # TODO: maybe to properly share an axis, use  the anchor property
+        #        https://plot.ly/python/subplots/
+        """ Given a 2d Array/list of plot objects it creates a grid plot """
+        # if group.type == "overlay":
+        grid_items = grid_items.copy()
+        traces = []
+
+        for i in range(len(grid_items.items)):
+            row = []
+            for j in range(len(grid_items.items[i])):
+                try:
+                    item = grid_items.items[i][j]
+                    if item.type == "lineplot":
+                        trace = plt.lineplot(p=item, color=item.color)
+                        row.append(trace)
+                    elif item.type == "scatter":
+                        trace = plt.scatter(p=item, color=item.color)
+                        row.append(trace)
+                    elif item.type == "step":
+                        trace = plt.step(p=item, color=item.color)
+                        row.append(trace)
+                    else:
+                        assert False, "invalid value for plot type"
+                except:
+                    print("plotting grid cell {}{} failed".format(i,j))
+                    pass
+            traces.append(row)
+
+            fig = tools.make_subplots(rows=len(grid_items.items), cols=max([len(rr) for rr in grid_items.items]),
+                                      shared_yaxes=False,
+                                      shared_xaxes=grid_items.sharex,
+                                      # subplot_titles=None,
+                                      horizontal_spacing=0.05,
+                                      vertical_spacing=0.1,
+                                      )
+
+
+            for i in range(len(traces)):
+                for j in range(len(traces[i])):
+                    try:
+                        fig.append_trace(traces[i][j], i+1, j+1)
+                    except:
+                        print("something skipped")
+
+        # fig = plt.create_figure(traces=traces, title=group.title, xlabel=group.items[0].xlabel, ylabel=group.items[0].ylabel, sharey=group.sharey)
+        return fig
+        # return traces
+
+    def plotgrid(self, grid_items, file=None):
+        fig = self.compilegrid(grid_items)
+        if file is None:
+            iplot(fig)
+        else:
+            plot(fig, filename=file)
 
     def scatter(self, obj):
         raise NotImplementedError

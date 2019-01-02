@@ -220,6 +220,82 @@ class PlotGroup(object):
 
 
 
+class PlotGrid(object):
+    def __init__(self, items=[], engine="mpl", type="vertical", sharex=True, sharey=False, legend="br", title="Plot"):
+        self.items = [[item] if not isinstance(item, list) else item for item in items]
+        # self.items = items
+        self.sharex = sharex
+        self.sharey = sharey
+        self.type = type
+        self.engine = engine
+        #self.share = share
+        self.legend = legend
+        self.title = title
+
+    def compile(self, engine=None, title=None):
+        # overrride plot title
+        if title is not None:
+            self.title = title
+        if engine is None:
+            engine = self.engine
+        return enginemap[engine].compilegrid(self)
+
+    def plot(self, engine=None, file=None, title=None):
+        # overrride plot title
+        if title is not None:
+            self.title = title
+        if engine is None:
+            engine = self.engine
+        return enginemap[engine].plotgrid(self, file=file)
+
+    def copy(self):
+        # TODO: see if this is a proper copy
+        return copy.copy(self)
+
+    def __div__(self, other):
+        print("division on grid object")
+    #     new = self.copy()
+    #     if isinstance(other, PlotGroup):
+    #         new.items.extend(other.items)
+    #         new.sharex.extend(other.sharex)
+    #         new.sharey.extend(other.sharey)
+    #     elif isinstance(other, ProtoPlot):
+    #         new.items.append(other)
+    #         new.sharex.append(True)
+    #         new.sharey.append(True)
+    #     return new
+
+    # def __sub__(self, other):
+    #     # TODO: need to check if this is modifying the original `other` group,
+    #     #       or applying share=False to a new object
+    #     new = self.copy()
+    #     if isinstance(other, PlotGroup):
+    #         new.items.extend(other.items)
+    #         new.sharex.extend(other.sharex)
+    #
+    #         other_sharey = other.sharey.copy()
+    #         other_sharey[0] = False
+    #         new.sharey.extend(other_sharey)
+        #
+        # elif isinstance(other, ProtoPlot):
+        #     # TODO: this one is totally modifying the original object. Need to change this
+        #     other_item = other
+        #     # other.share = False
+        #     new.items.append(other)
+        #     new.sharex.append(True)
+        #     new.sharey.append(False)
+        # return new
+
+    def __getitem__(self, sliced):
+        # BUG: it is modifying the data in place, it should return a copy
+        #      leaving the original data unsliced
+        new = self.copy()
+        for i, item in enumerate(self.items):
+            new.items[i] = item[sliced]
+        return new
+
+
+
 # ##############################################################################
 #                                        PLOT FUNCTIONS
 # ##############################################################################
