@@ -4,3 +4,21 @@ def rescale(x, range, newrange=(0,1)):
     return ((x-mina)/(maxa-mina) * (maxb-minb)) + minb
 
 
+def rgb2hex(x, alpha=False):
+    """
+    Takes a tuple of rgb values as either:
+    - floats in the range 0-1
+    - ints in the range 0-255
+
+    and returns a Hex formatted RGB string, eg `"#FF0088"`
+    """
+    if isinstance(x[0], float):
+        multiplier = 255
+    else:
+        multiplier = 1
+    r = "{:02x}".format(int(x[0]*multiplier))
+    g = "{:02x}".format(int(x[1]*multiplier))
+    b = "{:02x}".format(int(x[2]*multiplier))
+    return ("#"+r+g+b).upper()
+
+
