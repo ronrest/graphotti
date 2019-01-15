@@ -33,3 +33,9 @@ def color_range(n, cmap="YlOrRd"):
     c = [rgb2hex(cmap(x)) for x in np.linspace(0,1,n)]
     return c
 
+def datetime2color(t, cmap="YlOrRd"):
+    mint, maxt = min(t), max(t)
+    cmap = matplotlib.cm.get_cmap(cmap)
+    colors = rescale(t, (mint, maxt), (0,1))
+    colors = [rgb2hex(cmap(x)) for x in colors]
+    return colors
