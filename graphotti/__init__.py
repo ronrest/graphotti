@@ -1,3 +1,3 @@
 name = "graphotti"
 from . plot import *
-import support
+from . import support
