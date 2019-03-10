@@ -34,9 +34,9 @@ Read the [white paper](white_paper.md) for more information about the ambitions 
 
 ## Installing and Setting up
 
-In the future this will be a library you can install through `pip`.
-
-However, for the time being you can download this entire repository into your working directory, and import the library into your project using:
+```shell
+pip install -e git+https://github.com/ronrest/graphotti.git#egg=graphotti
+```
 
 ```py
 import graphotti as gh
