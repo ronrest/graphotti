@@ -72,7 +72,7 @@ class MPLEngine(object):
             # Assume for the time being that ALL the items in the group are
             # low level plot objects of type lineplot
             for i, obj in enumerate(group.items):
-                showlegend = group.legend if i == (n_items -1) else None
+                showlegend = None if not group.showlegend else group.legend if i == (n_items -1) else None
                 # color = COLORS[i%ncolors] if obj.color is None else obj.color
                 color = COLORS[i%ncolors]
                 if i == 0:
@@ -83,6 +83,7 @@ class MPLEngine(object):
                     fig, ax = self.intragroup_compile(p=obj, ax=ax, legend=showlegend, color=color, sharex=sharex[i], sharey=sharey[i])
             # Ad fig title
             fig.suptitle(group.title, fontsize=15, fontdict={"fontweight": "extra bold"})
+
             return fig, ax
         else:
             assert False, "This group type {} is not implemented yet".format(group.type)
