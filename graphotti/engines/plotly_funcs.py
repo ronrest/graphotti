@@ -8,10 +8,11 @@ import plotly.graph_objs as go
 
 CATEGORICAL_COLORS = ["blue", "orange", "green", "purple", "red", "pink", "grey"]
 
-def create_figure(traces, title, xlabel="x", ylabel="y", sharey=None):
+def create_figure(traces, title, xlabel="x", ylabel="y", sharey=None, scaley=None):
     n = len(traces)
     last_shared_y_axis = 1
     sharey = [True for _ in range(n)] if sharey is None else sharey
+    scaley = ["linear" for _ in range(n)] if scaley is None else scaley
     layout = go.Layout(
         title=title,
         hovermode="closest",
@@ -20,8 +21,10 @@ def create_figure(traces, title, xlabel="x", ylabel="y", sharey=None):
             ),
         yaxis=dict(
             title=ylabel,
+            type=scaley[0] if n > 1 else scaley
             ),
         )
+
     for i in range(len(traces)):
         if not sharey[i]:
             last_shared_y_axis = i+1
@@ -29,6 +32,7 @@ def create_figure(traces, title, xlabel="x", ylabel="y", sharey=None):
             layout["yaxis"+ykey_suffix] = dict(
                                             # title="y{}".format(i),
                                             overlaying="y" if (i > 0) else None,
+                                            type=scaley[i],
                                             )
         else:
             ykey_suffix = "{}".format(last_shared_y_axis) if last_shared_y_axis > 1 else ""

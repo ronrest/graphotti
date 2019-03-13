@@ -160,6 +160,7 @@ class PlotGroup(object):
         self.items = items
         self.sharex = [True for item in items]if sharex is None else sharex
         self.sharey = [True for item in items]if sharey is None else sharey
+        self.scaley = [item.scaley for item in items]
         self.type = type
         self.engine = engine
         #self.share = share
@@ -194,10 +195,12 @@ class PlotGroup(object):
             new.items.extend(other.items)
             new.sharex.extend(other.sharex)
             new.sharey.extend(other.sharey)
+            new.scaley.extend(other.scaley)
         elif isinstance(other, ProtoPlot):
             new.items.append(other)
             new.sharex.append(True)
             new.sharey.append(True)
+            new.scaley.append(other.scaley)
         return new
 
     def __sub__(self, other):

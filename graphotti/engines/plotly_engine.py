@@ -61,7 +61,7 @@ class PlotlyEngine(object):
         else:
             assert False, "invalid value for plot type"
 
-        fig = plt.create_figure(traces=traces, title=obj.title, xlabel=obj.xlabel, ylabel=obj.ylabel)
+        fig = plt.create_figure(traces=traces, title=obj.title, xlabel=obj.xlabel, ylabel=obj.ylabel, scaley=obj.scaley)
         return fig
 
     def compilegroup(self, group):
@@ -80,7 +80,7 @@ class PlotlyEngine(object):
             else:
                 assert False, "invalid value for plot type"
 
-        fig = plt.create_figure(traces=traces, title=group.title, xlabel=group.items[0].xlabel, ylabel=group.items[0].ylabel, sharey=group.sharey)
+        fig = plt.create_figure(traces=traces, title=group.title, xlabel=group.items[0].xlabel, ylabel=group.items[0].ylabel, sharey=group.sharey, scaley=group.scaley)
         return fig
 
 
