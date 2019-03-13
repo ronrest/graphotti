@@ -57,7 +57,7 @@ class ProtoPlot(object):
 
         self.scalex = scalex
         self.scaley = scaley
-        self.scaley = scalez
+        self.scalez = scalez
 
         self.xlabel = xlabel
         self.ylabel = ylabel
