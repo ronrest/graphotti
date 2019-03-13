@@ -178,10 +178,10 @@ overlay.plot(file="myplot.jpg")
 
 ```python
 # Line plot of all the columns of a dataframe, sharing same y axes
-p = gh.dfplot(df, type="line")
+p = gh.dfplot(df, kind="line")
 
 # Step plot of all the columns of a dataframe, with independent y axes
-p = gh.dfplot(df, type="step", sharey=False)
+p = gh.dfplot(df, kind="step", sharey=False)
 ```
 
 ## Chosing Rendering Engines

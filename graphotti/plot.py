@@ -415,27 +415,34 @@ def step(x, y=None,
 # ##############################################################################
 #                           DATAFRAME PLOTS
 # ##############################################################################
+# Overriding the `sum()` function because for some reason the native one does
+# not work properly from inside of this module.
+#     It would throw an error about adding an integer to a ProtoPlot
+#     object.
+def sum(x):
+    """ Iteratively add a list of items """
+    return reduce(operator.__add__, x)
+
 def subtract(x):
-    """ Allows you to subtract a list of items, similarly to the sum() function
-    """
+    """ Iteratively subtract a list of items, similarly to the sum() function """
     return reduce(operator.__sub__, x)
 
 
-def dfplot(df, type="line", sharey=True, **kwargs):
+def dfplot(df, kind="line", sharey=True, **kwargs):
     """ Given a dataframe, it creates a group plot object, using the data
-        from each of the columns. Can specify the plot type, and
+        from each of the columns. Can specify the plot kind, and
         whether to share y axis.
 
     Args:
         df:     (pandas dataframe)
-        type:   (str) one of "line", "step", "scatter"
+        kind:   (str) one of "line", "step", "scatter"
         sharey: (bool) whether the plots should share the y axis
-        **kwargs: aditional keyword arguments passed to the plot type function
+        **kwargs: aditional keyword arguments passed to the plot kind function
     """
-    # Establish the type of plot to use
+    # Establish the kind of plot to use
     plotfuncs = dict(line=lineplot, step=step, scatter=scatter)
-    assert type in plotfuncs.keys(), "Only accepts the following plot types: {}".format(plotfunc.keys())
-    plotfunc = plotfuncs[type]
+    assert kind in plotfuncs.keys(), "Only accepts the following plot kinds: {}".format(plotfunc.keys())
+    plotfunc = plotfuncs[kind]
 
     # Group the columns together as plot objects
     group = [plotfunc(df[col], name=str(col)) for col in df.columns]
