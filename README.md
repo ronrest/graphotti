@@ -138,6 +138,31 @@ overlay[6:10].plot()
 ![image](imgs/sliced.jpg)
 
 
+## Y scales
+
+NOTE: only implemented on the plotly engine so far. Not implemented on the matplotlib engine yet.
+
+You can set eg a plot to be in log scale by setting the `scaley` property.
+
+```python
+a = gh.line([1,10,20,30,40,50,60,70,80], scaley="linear")
+b = gh.line([10,20,30,40,50,60,70,80, 90], scaley="log")
+
+# plot shown in log scale
+b.plot()
+
+# When sharing a y axis, the settings of the first plot takes precedence,
+# so both show as linear
+(a+b).plot()
+
+# Here both are shown as log scale
+(b+a).plot()
+
+# If not sharing a y axis, then each plot is shown in their corresponding
+# y scale setting
+(a-b).plot()
+```
+
 ## Saving To File
 
 Save plots by passing a file path string to the `file` argument when calling `plot()`.
