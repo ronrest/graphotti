@@ -38,14 +38,14 @@ Read the [white paper](white_paper.md) for more information about the ambitions 
 pip install -e git+https://github.com/ronrest/graphotti.git#egg=graphotti
 ```
 
-```py
+```python
 import graphotti as gh
 ```
 
 You can also import the following depending on whether you want to render the plots using matplotlib, or plotly.
 
 
-```py
+```python
 # For rendering using plotly engine within a jupyter notebook
 from plotly.offline import init_notebook_mode
 init_notebook_mode(connected=True)
@@ -59,7 +59,7 @@ init_notebook_mode(connected=True)
 
 Creating a lineplot is as simple as:
 
-```py
+```python
 a = gh.line([7,8,9,8,6])
 a.plot()
 ```
@@ -78,7 +78,7 @@ You can use the `+` and `-` operators to overlay plots on top of each other.
 
 In the following example, three plots are created, overlayed on top of each other, and all sharing the same y axis.
 
-```py
+```python
 from plot import lineplot
 a = gh.line([7,8,9,8,6])
 b = gh.line([2,1,3,2])
@@ -92,7 +92,7 @@ overlay.plot()
 
 In the following example, the three plots are overlayed but the final plot uses its own independent y axis.
 
-```py
+```python
 overlay = a+b-c
 overlay.plot()
 ```
@@ -101,7 +101,7 @@ overlay.plot()
 
 You can also overlay plots of different types, eg, below we overlay a lineplot, a step plot, and a scatterplot all on top of each other.
 
-```py
+```python
 s = gh.step(x= [1,4,5,6,7,9], y=[0,1,0,1,2,0], name="step plot")
 l = gh.line(x= [0,3,6,7,8,9], y=[1,2,4,1,2,4], name="line plot")
 c = gh.scatter([3,8,2,6,2,4], [4,3,3,2,1,6], labels=["a","b","c","d","e","f"], name="scatter plot")
@@ -117,7 +117,7 @@ Just like you can slice lists, and arrays to get a subset of the data, you can t
 
 EXAMPLE:
 
-```py
+```python
 a = gh.line([5,7,8,8,7,5,2,5,6,5,4,2,3])
 b = gh.line([2,1,3,2,4,5,4,2,3,2,3,1,1,2,0])
 c = gh.line([4,6,5,3,6,5,7,4,5,3,5,2,1,3,4])
@@ -130,7 +130,7 @@ overlay.plot()
 ![image}](imgs/unsliced.jpg)
 
 
-```py
+```python
 # Sliced plot
 overlay[6:10].plot()
 ```
@@ -167,7 +167,7 @@ b.plot()
 
 Save plots by passing a file path string to the `file` argument when calling `plot()`.
 
-```py
+```python
 overlay.plot(file="myplot.jpg")
 ```
 
@@ -184,7 +184,7 @@ Possible values are:
 
 EXAMPLES:
 
-```py
+```python
 # Plot using matplotlib explicitly
 overlay.plot("mpl")
 
