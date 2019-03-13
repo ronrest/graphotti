@@ -8,6 +8,9 @@
 #       plots to be updatable, and not having to do new copies of the ProtoPlot
 #       objects when set to share=False
 
+from functools import reduce
+import operator
+
 import pandas as pd
 from . engines import enginemap
 import copy
@@ -406,3 +409,38 @@ def step(x, y=None,
 
     obj.points = points
     return obj
+
+
+
+# ##############################################################################
+#                           DATAFRAME PLOTS
+# ##############################################################################
+def subtract(x):
+    """ Allows you to subtract a list of items, similarly to the sum() function
+    """
+    return reduce(operator.__sub__, x)
+
+
+def dfplot(df, type="line", sharey=True, **kwargs):
+    """ Given a dataframe, it creates a group plot object, using the data
+        from each of the columns. Can specify the plot type, and
+        whether to share y axis.
+
+    Args:
+        df:     (pandas dataframe)
+        type:   (str) one of "line", "step", "scatter"
+        sharey: (bool) whether the plots should share the y axis
+        **kwargs: aditional keyword arguments passed to the plot type function
+    """
+    # Establish the type of plot to use
+    plotfuncs = dict(line=lineplot, step=step, scatter=scatter)
+    assert type in plotfuncs.keys(), "Only accepts the following plot types: {}".format(plotfunc.keys())
+    plotfunc = plotfuncs[type]
+
+    # Group the columns together as plot objects
+    group = [plotfunc(df[col], name=str(col)) for col in df.columns]
+    if sharey:
+        group = sum(group)
+    else:
+        group = subtract(group)
+    return group

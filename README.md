@@ -138,6 +138,9 @@ overlay[6:10].plot()
 ![image](imgs/sliced.jpg)
 
 
+TODO: Add example of slicing datetime indexed plots
+
+
 ## Y scales
 
 NOTE: only implemented on the plotly engine so far. Not implemented on the matplotlib engine yet.
@@ -171,6 +174,15 @@ Save plots by passing a file path string to the `file` argument when calling `pl
 overlay.plot(file="myplot.jpg")
 ```
 
+## Plotting columns of a Pandas dataframe
+
+```python
+# Line plot of all the columns of a dataframe, sharing same y axes
+p = gh.dfplot(df, type="line")
+
+# Step plot of all the columns of a dataframe, with independent y axes
+p = gh.dfplot(df, type="step", sharey=False)
+```
 
 ## Chosing Rendering Engines
 
