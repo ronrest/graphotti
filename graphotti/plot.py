@@ -214,7 +214,7 @@ class PlotGroup(object):
             other_sharey = other.sharey.copy()
             other_sharey[0] = False
             new.sharey.extend(other_sharey)
-
+            new.scaley.extend(other.scaley)
         elif isinstance(other, ProtoPlot):
             # TODO: this one is totally modifying the original object. Need to change this
             other_item = other
@@ -222,6 +222,7 @@ class PlotGroup(object):
             new.items.append(other)
             new.sharex.append(True)
             new.sharey.append(False)
+            new.scaley.append(other.scaley)
         return new
 
     def __getitem__(self, sliced):
