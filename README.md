@@ -184,9 +184,32 @@ p = gh.dfplot(df, kind="line")
 p = gh.dfplot(df, kind="step", sharey=False)
 ```
 
+
+
 ## Chosing Rendering Engines
 
-The first positional argument to the `plot()` function allows you to select which renreding engine to use to render the plot. By default, the rendering engine used is Matplotlib.
+### Setting default rendering engine
+
+By default, the rendering engine used is Matplotlib. But you can change the default as follows.
+
+```python
+# Set default rendering engine to be Matplotlib
+gh.set_default_engine("mpl")
+
+# Set default rendering engine to be Plotly
+gh.set_default_engine("ply")
+```
+
+Possible values are:
+
+- `"mpl"` Use Matplotlib
+- `"plotly"` or `"ply"` Use plotly
+
+
+
+### Setting rendering engine for specific figure
+
+You can override the default rendering engine and set a different one for individual plots. The first positional argument to the `plot()` function allows you to select which rendering engine to use to render the plot.
 
 Possible values are:
 

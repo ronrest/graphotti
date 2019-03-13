@@ -21,8 +21,10 @@ COLORS = [
     ]
 
 
+
 from plotly.offline import plot, iplot
 from plotly import tools
+
 
 
 class PlotlyEngine(object):

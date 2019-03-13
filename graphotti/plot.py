@@ -15,6 +15,14 @@ import pandas as pd
 from . engines import enginemap
 import copy
 
+DEFAULT_ENGINE = "mpl"
+
+
+def set_default_engine(engine):
+    global DEFAULT_ENGINE
+    DEFAULT_ENGINE = engine
+
+
 class Ax(object):
     def __init__(self):
         self.xmin = None
@@ -83,7 +91,7 @@ class ProtoPlot(object):
         self.majorgrid = True
         self.minorgrid = True
 
-        self.engine = "mpl"
+        self.engine = None
         self.type = ptype # plot type
         # self.share = True
 
@@ -94,8 +102,11 @@ class ProtoPlot(object):
         self.showlegend = showlegend
 
         if engine is None:
-            engine = self.engine
+            engine = self.get_engine()
         return enginemap[engine].compile(self)
+
+    def get_engine(self):
+        return DEFAULT_ENGINE if self.engine is None else self.engine
 
     def plot(self, engine=None, file=None, title=None, showlegend=True):
         # overrride plot title
@@ -104,8 +115,7 @@ class ProtoPlot(object):
         self.showlegend = showlegend
 
         if engine is None:
-            engine = self.engine
-
+            engine = self.get_engine()
         enginemap[engine].plot(self, file=file)
 
 
@@ -165,17 +175,20 @@ class PlotGroup(object):
         self.sharey = [True for item in items]if sharey is None else sharey
         self.scaley = [item.scaley for item in items]
         self.type = type
-        self.engine = engine
+        self.engine = None
         #self.share = share
         self.legend = legend
         self.title = title
+
+    def get_engine(self):
+        return DEFAULT_ENGINE if self.engine is None else self.engine
 
     def compile(self, engine=None, title=None, showlegend=True):
         # overrride plot title
         if title is not None:
             self.title = title
         if engine is None:
-            engine = self.engine
+            engine = self.get_engine()
         self.showlegend = showlegend
         return enginemap[engine].compilegroup(self)
 
@@ -184,7 +197,7 @@ class PlotGroup(object):
         if title is not None:
             self.title = title
         if engine is None:
-            engine = self.engine
+            engine = self.get_engine()
         self.showlegend = showlegend
         return enginemap[engine].plotgroup(self, file=file)
 
